@@ -18,18 +18,39 @@
       </div>
     </v-app-bar>
     <v-main class="blue accent-3">
+      <v-container v-if="login">
+        <v-row>
+          <v-col align="center">
+            <h2>WELCOME TO THE NEW POLICE DATABASE</h2>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col align="center">
+            <v-btn width="27%" @click="toLogin"><h2>KEEP GOING</h2></v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
       <router-view />
     </v-main>
   </v-app>
 </template>
 
+
 <script>
 export default {
   name: "App",
 
-  data: () => ({
-    //
-  }),
+  data: function () {
+    return {
+      login: true,
+    };
+  },
+  methods: {
+    toLogin() {
+      this.$router.push("/home");
+      this.login = !this.login;
+    },
+  },
 };
 </script>
 
@@ -59,5 +80,11 @@ export default {
 .header {
   font-size: 20px;
   font-weight: bolder;
+}
+
+.wrap {
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 </style>

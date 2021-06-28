@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <span class="logged"> LOGGED IN: {{ user }}</span>
     <v-row>
       <v-col>
         <tasklist />
@@ -29,11 +30,19 @@ export default {
     assignmentlist,
     Crimelist,
   },
-  computed: {},
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
 };
 </script>
 
 <style>
+.logged {
+  color: orange;
+}
+
 hr {
   margin: 20px;
 }

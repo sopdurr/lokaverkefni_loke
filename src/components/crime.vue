@@ -5,19 +5,24 @@
         <h4>Register new crime</h4>
       </span>
       <v-text-field
+        color="orange"
         label="Name of Crime - autamatic by system"
         disabled
         v-model="newCrime.name"
       ></v-text-field>
       <v-text-field
+        color="orange"
         label="Place of Crime"
         v-model="newCrime.crimePlace"
       ></v-text-field>
       <v-text-field
+        color="orange"
+        @keypress="onlyNumbers($event)"
         label="Postal Code"
         v-model="newCrime.postalCode"
       ></v-text-field>
       <v-select
+        color="orange"
         :items="crimeType"
         item-text="crime"
         label="Type of Crime"
@@ -25,6 +30,7 @@
       >
       </v-select>
       <v-menu
+        color="orange"
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
@@ -35,6 +41,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
+            color="orange"
             v-model="newCrime.date"
             label="Date of Crime"
             prepend-icon="mdi-calendar"
@@ -52,13 +59,18 @@
         </v-date-picker>
       </v-menu>
       <v-select
+        color="orange"
         label="Severity"
         :items="severity"
         item-text="number"
         v-model="newCrime.severity"
       >
       </v-select>
-      <v-text-field label="Notes" v-model="newCrime.note"></v-text-field>
+      <v-text-field
+        color="orange"
+        label="Notes"
+        v-model="newCrime.note"
+      ></v-text-field>
       <v-btn @click="addCrime" width="100%">Add Crime</v-btn>
     </v-col>
   </v-row>
@@ -88,6 +100,11 @@ export default {
     },
   },
   methods: {
+    onlyNumbers(e) {
+      let num = String.fromCharCode(e.keyCode);
+      if (/^[0-9 ]+$/.test(num)) return true;
+      else e.preventDefault();
+    },
     addCrime() {
       this.$store.commit("addCrime", this.newCrime);
       this.newCrime = {};
@@ -96,7 +113,7 @@ export default {
 };
 </script>
 
-<style scoped >
+<style scoped>
 div {
   color: #e1f5fe;
   text-align: left;

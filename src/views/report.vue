@@ -7,35 +7,40 @@
           >choose case from case list to write report for</v-subheader
         >
         <v-text-field
+          color="orange"
           v-model="newReport.name"
           label="Name of case"
         ></v-text-field>
         <v-text-field
+          @keypress="onlyNumbers($event)"
+          color="orange"
           label="Crime ID"
-          v-model="newReport.crimeId"
+          v-model="newReport.id"
         ></v-text-field>
         <v-select
+          color="orange"
           :items="users"
           item-text="name"
           label="Employee"
           v-model="newReport.reporter"
         >
         </v-select>
-        <v-textarea label="Report" v-model="newReport.report"></v-textarea>
+        <v-textarea
+          color="orange"
+          label="Report"
+          v-model="newReport.report"
+        ></v-textarea>
         <v-btn width="100%" @click="addReport">Submit</v-btn>
       </v-col>
       <v-col>
         <h4>Case list</h4>
         <v-list-group>
           <v-list-item v-for="(c, index) in crimes" :key="index">
-            Case name: {{ c.name }} - ID: {{ c.crimeId }}
+            Case name: {{ c.name }} - ID: {{ c.id }}
           </v-list-item>
         </v-list-group>
       </v-col>
     </v-row>
-    <span v-for="r in reports" :key="r.name">
-      {{ r.name }} {{ r.crimeId }} {{ r.report }}
-    </span>
   </v-container>
 </template>
 
@@ -59,6 +64,11 @@ export default {
     },
   },
   methods: {
+    onlyNumbers(e) {
+      let num = String.fromCharCode(e.keyCode);
+      if (/^[0-9]+$/.test(num)) return true;
+      else e.preventDefault();
+    },
     addReport() {
       this.$store.commit("addReport", this.newReport);
       (this.newReport = {}), console.log(this.$store.getters.reports);

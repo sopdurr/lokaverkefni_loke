@@ -4,12 +4,14 @@
       <v-col>
         <h4>New assignment</h4>
         <v-text-field
+          color="orange"
           class="width"
           label="Assignment description"
           v-model="newAssignments.name"
         >
         </v-text-field>
         <v-select
+          color="orange"
           class="width"
           label="Assignment for:"
           :items="users"
@@ -17,6 +19,7 @@
           v-model="newAssignments.employee"
         ></v-select>
         <v-select
+          color="orange"
           class="width"
           label="Assignment Complete ?"
           :items="active"

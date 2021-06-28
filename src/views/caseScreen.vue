@@ -5,7 +5,7 @@
         <crime />
       </v-col>
       <v-col>
-        <suspect/>
+        <suspect />
       </v-col>
       <v-col>
         <victims />

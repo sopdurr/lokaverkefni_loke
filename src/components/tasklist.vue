@@ -1,6 +1,15 @@
 <template>
   <v-container>
     <v-row class="content">
+      <v-col @click="fullOverview">
+        <v-btn
+          @click="fullOverview"
+          width="100%"
+          color="light-blue lighten-5"
+          height="50px"
+          >Full Crime Overview</v-btn
+        >
+      </v-col>
       <v-col>
         <v-btn
           width="100%"
@@ -10,30 +19,6 @@
         >
           New Case
           <v-icon small color="orange"> mdi-file-send</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          width="100%"
-          color="light-blue lighten-5"
-          height="50px"
-          @click="openCases"
-        >
-          Open Cases
-          <v-icon small color="orange"> mdi-file-multiple </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn
-          width="100%"
-          color="light-blue lighten-5"
-          height="50px"
-          @click="assignments"
-        >
-          Assignments
-          <v-icon small color="orange"> mdi-clipboard-text </v-icon>
         </v-btn>
       </v-col>
       <v-col>
@@ -101,18 +86,26 @@ export default {
   },
   computed: {
     users() {
-      return this.$store.getters.user 
+      return this.$store.getters.users;
     },
   },
   methods: {
-    logOut(){
-      this.$router.push("/")
+    logOut() {
+      this.users.forEach((user) => {
+        user.loggedIn = false;
+        if (this.$route.path != "/home") {
+          this.$router.push("home");
+        }
+        console.log(this.users);
+      });
     },
     reports() {
       this.$router.push("/report");
     },
     settings() {
-      this.$router.push("/settings");
+      if (this.$store.getters.user == "Herra Hnetusmjör") {
+        this.$router.push("/settings");
+      }
     },
     doAssignment() {
       this.$router.push("/assignmentdo");
@@ -128,6 +121,9 @@ export default {
     },
     assignments() {
       this.$router.push("/assignment");
+    },
+    fullOverview() {
+      this.$router.push("/fullcrimeoverview/1").catch(() => {});
     },
   },
 };

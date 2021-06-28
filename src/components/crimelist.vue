@@ -3,6 +3,7 @@
     <v-row>
       <v-col>
         <span class="inline"> <h4>Crimes list</h4> </span>
+
         <input
           class="check"
           type="text"
@@ -12,7 +13,9 @@
         <div>
           <v-btn x-small class="crimes" @click="allCrimes">ALL</v-btn>
           <v-btn x-small class="crimes" @click="openCrimes">OPEN</v-btn>
-          <v-btn x-small class="crimes" @click="closedCrimes">CLOSED</v-btn>
+          <v-btn x-small class="crimes" @click="closedCrimes">CLOSED</v-btn> //
+          <v-btn x-small class="date" @click="sortAsc">ASCENDING</v-btn>
+          <v-btn x-small class="date" @click="sortDesc">DESCENDING</v-btn>
         </div>
         <ol v-if="all">
           <li v-for="(c, index) in crimes" :key="index">
@@ -22,7 +25,7 @@
               @click="crimeDone(index)"
             />
             <span v-bind:class="{ strike: c.closed }">
-              {{ c.name }} {{ c.closed }} {{ c.crimeId }}
+              {{ c.name }}
             </span>
           </li>
         </ol>
@@ -42,7 +45,7 @@
             </span>
           </li>
         </ol>
-        <ol v-if="closed">
+        <ol v-if="close">
           <li
             v-for="(c, index) in crimes"
             :key="index"
@@ -72,9 +75,10 @@ export default {
     return {
       all: true,
       open: false,
-      closed: false,
-      oldestFirst: false,
+      close: false,
       searchTerm: "",
+      ascending: true,
+      descending: true,
     };
   },
   computed: {
@@ -86,25 +90,28 @@ export default {
         return item.name.toLowerCase().includes(this.searchTerm.toLowerCase());
       });
     },
-    setDates() {
-      return this.$store.getters.setDates;
-    },
   },
   methods: {
+    sortAsc() {
+      this.$store.commit("sortAsc", this.ascending);
+    },
+    sortDesc() {
+      this.$store.commit("sortDesc", this.descending);
+    },
     allCrimes() {
       this.all = true;
       this.open = false;
-      this.closed = false;
+      this.close = false;
     },
     openCrimes() {
       this.all = false;
       this.open = true;
-      this.closed = false;
+      this.close = false;
     },
     closedCrimes() {
       this.all = false;
       this.open = false;
-      this.closed = true;
+      this.close = true;
     },
     crimeDone(value) {
       this.$store.commit("crimeDone", value);
@@ -123,10 +130,12 @@ export default {
 }
 
 h4 {
+  display: inline;
   color: #e1f5fe;
 }
 
 input {
+  color: red;
   padding-left: 10px;
 }
 
@@ -134,7 +143,7 @@ input {
   outline: none;
 }
 
-h4 {
-  display: inline;
+.date {
+  margin-left: 10px;
 }
 </style>

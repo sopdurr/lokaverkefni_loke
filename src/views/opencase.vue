@@ -50,8 +50,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 h4 {
   color: #e1f5fe;
   margin-bottom: 10px;

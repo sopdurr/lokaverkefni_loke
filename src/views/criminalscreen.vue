@@ -5,17 +5,34 @@
         <span>
           <h4>Register new criminal</h4>
         </span>
-        <v-text-field label="Name" v-model="newSuspects.name"></v-text-field>
         <v-text-field
+          @keypress="onlyLetters($event)"
+          color="orange"
+          label="Name"
+          v-model="newSuspects.name"
+        ></v-text-field>
+        <v-text-field
+          color="orange"
           label="Home Address"
           v-model="newSuspects.homeAddress"
         ></v-text-field>
         <v-text-field
+          @keypress="onlyNumbers($event)"
+          color="orange"
           label="Phone Number"
           v-model="newSuspects.phoneNumber"
         ></v-text-field>
-        <v-text-field label="Age" v-model="newSuspects.age"></v-text-field>
-        <v-text-field label="Comment" v-model="newSuspects.note"></v-text-field>
+        <v-text-field
+          @keypress="onlyNumbers($event)"
+          color="orange"
+          label="Age"
+          v-model="newSuspects.age"
+        ></v-text-field>
+        <v-text-field
+          color="orange"
+          label="Comment"
+          v-model="newSuspects.note"
+        ></v-text-field>
         <v-checkbox
           color="orange"
           label="Prisoned before ?"
@@ -35,11 +52,12 @@
         <input type="text" v-model="searchTerm" placeholder="search" />
         <v-list-group>
           <v-list-item
+            label="choose from list"
             v-for="(criminal, index) in criminals"
             :key="index"
             @click="editCriminal(criminal)"
           >
-            {{ criminal.name }} {{criminal.crimeId}}
+            {{ criminal.name }} - Crime id:{{ criminal.id }}
           </v-list-item>
         </v-list-group>
       </v-col>
@@ -68,6 +86,16 @@ export default {
     },
   },
   methods: {
+    onlyNumbers(e) {
+      let num = String.fromCharCode(e.keyCode);
+      if (/^[0-9 ]+$/.test(num)) return true;
+      else e.preventDefault();
+    },
+    onlyLetters(e) {
+      let char = String.fromCharCode(e.keyCode);
+      if (/^[A-Za-z ]+$/.test(char)) return true;
+      else e.preventDefault();
+    },
     deleteCriminal() {
       this.$store.commit("deleteCriminal", this.newSuspects);
       this.stopEdit();

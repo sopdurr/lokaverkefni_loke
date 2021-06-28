@@ -24,18 +24,35 @@
       </v-col>
       <v-col>
         <h4>Register new user</h4>
-        <v-text-field label="Name" v-model="newUser.name"></v-text-field>
         <v-text-field
+          @keypress="onlyLetters($event)"
+          color="orange"
+          label="Name"
+          v-model="newUser.name"
+        ></v-text-field>
+        <v-text-field
+          color="orange"
+          @keypress="onlyNumbers($event)"
           label="Badge number"
           v-model="newUser.policeNumber"
         ></v-text-field>
-        <v-text-field label="Email" v-model="newUser.email"></v-text-field>
         <v-text-field
+          color="orange"
+          label="Email"
+          v-model="newUser.email"
+        ></v-text-field>
+        <v-text-field
+          color="orange"
           label="password"
           v-model="newUser.password"
         ></v-text-field>
-        <v-text-field label="Image url" v-model="newUser.img"></v-text-field>
+        <v-text-field
+          color="orange"
+          label="Image url"
+          v-model="newUser.img"
+        ></v-text-field>
         <v-select
+          color="orange"
           label="active user"
           v-model="newUser.active"
           :items="active"
@@ -66,17 +83,17 @@
     <hr />
     <br />
     <v-row>
-      <v-col v-if="show">
-        <v-btn @click="show = false">Overview of users</v-btn>
+      <v-col v-if="showUsers">
+        <v-btn @click="showUsers = false">Overview of users</v-btn>
       </v-col>
       <v-col v-else>
-        <v-btn @click="show = true">Back</v-btn>
+        <v-btn @click="showUsers = true">Back</v-btn>
         <v-flex d-flex>
           <v-layout wrap>
             <v-flex md4 v-for="u in users" :key="u.name">
               <v-card width="100%">
                 <v-img height="350" :src="u.img"></v-img>
-                <v-card-title>Captain: {{ u.name }}</v-card-title>
+                <v-card-title>{{ u.name }}</v-card-title>
                 <v-card-text>
                   <v-row align="center" class="mx-0"> </v-row>
                   <div class="my-4 text-subtitle-1"></div>
@@ -91,11 +108,11 @@
           </v-layout>
         </v-flex>
       </v-col>
-      <v-col v-if="show1">
-        <v-btn @click="show1 = false">Set assignment</v-btn>
+      <v-col v-if="showAssignment">
+        <v-btn @click="showAssignment = false">Set assignment</v-btn>
       </v-col>
       <v-col v-else>
-        <v-btn @click="show1 = true">Back</v-btn>
+        <v-btn @click="showAssignment = true">Back</v-btn>
         <newassignment />
       </v-col>
     </v-row>
@@ -110,8 +127,8 @@ export default {
   },
   data: function () {
     return {
-      show1: true,
-      show: true,
+      showAssignment: true,
+      showUsers: true,
       newUser: {},
       userSelected: false,
     };
@@ -125,6 +142,16 @@ export default {
     },
   },
   methods: {
+    onlyLetters(e) {
+      let char = String.fromCharCode(e.keyCode);
+      if (/^[A-Za-z ]+$/.test(char)) return true;
+      else e.preventDefault();
+    },
+    onlyNumbers(e) {
+      let num = String.fromCharCode(e.keyCode);
+      if (/^[0-9]+$/.test(num)) return true;
+      else e.preventDefault();
+    },
     addUser() {
       this.$store.commit("addUser", this.newUser);
       this.newUser = {};

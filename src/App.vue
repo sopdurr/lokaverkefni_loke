@@ -7,19 +7,17 @@
           src="https://interpol-center.org/wp-content/uploads/2021/03/logo-inter.png"
           width="70"
         />
-        LÖKE
+        <span class="color"> LÖKE </span>
       </div>
-
       <v-spacer></v-spacer>
 
-      {{user}}
       <div class="routing">
         <router-link class="links" to="/overview">HOME</router-link>
-        <router-link class="links" to="/about">ABOUT</router-link>
-        <router-link class="links" to="/about">CONTACT</router-link>
+        <router-link class="links" to="#">ABOUT</router-link>
+        <router-link class="links" to="#">CONTACT</router-link>
       </div>
     </v-app-bar>
-    <v-main class="main">
+    <v-main class="blue accent-3">
       <router-view />
     </v-main>
   </v-app>
@@ -28,12 +26,6 @@
 <script>
 export default {
   name: "App",
-
-  computed: {
-    user() {
-      return this.$store.getters.user;
-    },
-  },
 
   data: () => ({
     //
@@ -56,7 +48,7 @@ export default {
   margin: 15px;
   padding: 7px;
   text-decoration: none;
-  color: #24335b;
+  color: black;
   font-weight: bold;
 }
 
@@ -67,10 +59,5 @@ export default {
 .header {
   font-size: 20px;
   font-weight: bolder;
-  color: #24335b;
-}
-
-.main {
-  background-color: #24335b;
 }
 </style>

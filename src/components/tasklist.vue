@@ -93,10 +93,9 @@ export default {
     logOut() {
       this.users.forEach((user) => {
         user.loggedIn = false;
-        if (this.$route.path != "/home") {
-          this.$router.push("home");
+        if (this.$route.path != "/") {
+          this.$router.push("/");
         }
-        console.log(this.users);
       });
     },
     reports() {

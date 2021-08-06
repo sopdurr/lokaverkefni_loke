@@ -15,7 +15,7 @@ export default new Vuex.Store({
     ],
     users: [
       {
-        name: "Herra Hnetusmjör",
+        name: "John",
         policeNumber: 1007,
         password: "sjomli",
         email: "peanut@loke.is",
@@ -25,7 +25,7 @@ export default new Vuex.Store({
         img: "https://direct.rhapsody.com/imageserver/images/alb.304097178/500x500.jpg"
       },
       {
-        name: "Fred Flinstone",
+        name: "Bill",
         policeNumber: 1006,
         password: "jabbadabba",
         email: "freddief@loke.is",

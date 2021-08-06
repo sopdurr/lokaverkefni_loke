@@ -53,8 +53,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <input class="input" type="text" placeholder="ID" v-model="crime" />
-    <div>ENTER: 1 to {{ crimeLength }}</div>
     <v-btn @click="move">See another crime</v-btn>
   </v-container>
 </template>
@@ -64,7 +62,6 @@ export default {
   data: function () {
     return {
       indexOf: 0,
-      crime: undefined,
     };
   },
   computed: {
@@ -86,7 +83,12 @@ export default {
   },
   methods: {
     move() {
-      this.$router.push("/fullcrimeoverview/" + this.crime).catch(() => {});
+      let nextCrime = this.crimes.id + 1;
+      if (nextCrime > this.crimeLength) {
+        nextCrime = 1;
+      }
+
+      this.$router.push("/fullcrimeoverview/" + nextCrime).catch(() => {});
     },
   },
 };

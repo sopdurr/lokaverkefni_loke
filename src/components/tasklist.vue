@@ -102,7 +102,7 @@ export default {
       this.$router.push("/report");
     },
     settings() {
-      if (this.$store.getters.user == "Herra Hnetusmjör") {
+      if (this.$store.getters.user == "John") {
         this.$router.push("/settings");
       }
     },

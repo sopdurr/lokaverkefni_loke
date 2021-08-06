@@ -4,7 +4,7 @@
     <v-row class="login">
       <v-col cols="12" sm="6" md="3">
         <div class="login">
-          Enter: Herra Hnetusmjör for admin and Fred Flinstone for normal user.
+          Enter: John for admin and Bill for normal user.
         </div>
         <v-text-field
           color="orange"
